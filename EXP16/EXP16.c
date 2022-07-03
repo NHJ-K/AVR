@@ -7,24 +7,29 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#define F_CPU 1000000UL
 
 int main(void)
 {
-	DDRB |=0x20;
-	OCR0=40;
-	TCCR0=0x09;
-	TIMSK=(1<<OCIE0);
+	DDRB|=0x20;
+
+	TCNT0=0x0f;
+	TCCR0=0x04;
+	OCR0=0xaa;
+	TIMSK|=(1<<OCIE0);
 	sei();
-	DDRC=0x00;
-	DDRD=0xFF;
 	
-    while(1)
+    DDRD=0x00;
+	DDRC=0xff;
+	while (1) 
     {
-		PORTD=~ PINC;
-        //TODO:: Please write your application code 
+		
+		PORTC=~PIND;
     }
 }
-ISR(TIMER0_COMP_vect)
-{
-	PORTB ^=0x20;
+
+ISR(TIMER0_COMP_vect){
+	TCNT0=0x0f;
+	PORTB^=0x20;
+
 }
