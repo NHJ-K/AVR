@@ -17,11 +17,11 @@
 int main(void)
 {
 	DDRB=0xFF;
-	PORTB = DATA1 + DATA2;
+	PORTB = DATA1 & DATA2;
 	_delay_ms(100);
-	PORTB = DATA3 - DATA4;
+	PORTB = DATA3 | DATA4;
 	_delay_ms(100);
-	PORTB = DATA5 * DATA6;
+	PORTB = DATA5 ^ DATA6;
 	return 0;
     
 }
